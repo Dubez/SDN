@@ -24,7 +24,7 @@ class aggregateStats(EventMixin):
         self.sendAggregateStatsRequest(event)
 
     def _handle_AggregateFlowStatsReceived(self, event):
-        sw = 's%s'%event.dpid
+        sw = 's%s' % event.dpid
         self.aggregateActiveCount[sw] = event.stats
         print "AggregateStatsReceived"
 
@@ -38,7 +38,6 @@ class aggregateStats(EventMixin):
         sr = of.ofp_stats_request()
         sr.type = of.OFPST_AGGREGATE
         sr.body = of.ofp_aggregate_stats_request()
-        #sr.body.table_id = 0xff
         event.connection.send(sr)
         print "Sending aggregate stat request message to Switch %s " % event.dpid
 
